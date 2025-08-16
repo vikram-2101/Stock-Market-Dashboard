@@ -289,7 +289,7 @@ const setupDatabase = async () => {
       console.log(`✅ Generated data for ${company.symbol}`);
     }
 
-    client.release();
+    // client.release();
 
     console.log("🎉 Database setup completed successfully!");
     console.log("📊 Sample data has been inserted");
