@@ -1,14 +1,22 @@
-// scripts/setupDatabase.js - Database Setup and Migration Script
 const { Pool } = require("pg");
 require("dotenv").config();
 
-const pool = new Pool({
-  user: process.env.DB_USER || "postgres",
-  host: process.env.DB_HOST || "localhost",
-  database: "postgres", // Connect to default database first
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 5432,
-});
+const isCloud = !!process.env.DATABASE_URL;
+
+const pool = new Pool(
+  isCloud
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      }
+    : {
+        user: process.env.DB_USER || "postgres",
+        host: process.env.DB_HOST || "localhost",
+        database: process.env.DB_NAME || "stockmarket",
+        password: process.env.DB_PASSWORD || "password",
+        port: process.env.DB_PORT || 5432,
+      }
+);
 
 const setupDatabase = async () => {
   const client = await pool.connect();
@@ -16,49 +24,25 @@ const setupDatabase = async () => {
   try {
     console.log("🔄 Setting up database...");
 
-    // Create database if it doesn't exist
-    const dbName = process.env.DB_NAME || "stockmarket";
-    await client.query(
-      `
-      SELECT 1 FROM pg_database WHERE datname = $1
-    `,
-      [dbName]
-    );
+    // Only try CREATE DATABASE locally
+    if (!isCloud) {
+      const dbName = process.env.DB_NAME || "stockmarket";
+      const result = await client.query(
+        "SELECT 1 FROM pg_database WHERE datname = $1",
+        [dbName]
+      );
 
-    const dbExists =
-      (
-        await client.query(
-          `
-      SELECT 1 FROM pg_database WHERE datname = $1
-    `,
-          [dbName]
-        )
-      ).rows.length > 0;
-
-    if (!dbExists) {
-      console.log(`📊 Creating database: ${dbName}`);
-      await client.query(`CREATE DATABASE ${dbName}`);
-    } else {
-      console.log(`✅ Database ${dbName} already exists`);
+      if (result.rows.length === 0) {
+        console.log(`📊 Creating database: ${dbName}`);
+        await client.query(`CREATE DATABASE ${dbName}`);
+      } else {
+        console.log(`✅ Database ${dbName} already exists`);
+      }
     }
 
-    client.release();
-
-    // Connect to the actual database
-    const appPool = new Pool({
-      user: process.env.DB_USER || "postgres",
-      host: process.env.DB_HOST || "localhost",
-      database: dbName,
-      password: process.env.DB_PASSWORD,
-      port: process.env.DB_PORT || 5432,
-    });
-
-    const appClient = await appPool.connect();
-
+    // Create tables in the current DB
     console.log("🏗️  Creating tables...");
-
-    // Create companies table
-    await appClient.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS companies (
         id SERIAL PRIMARY KEY,
         symbol VARCHAR(20) UNIQUE NOT NULL,
@@ -73,8 +57,7 @@ const setupDatabase = async () => {
       )
     `);
 
-    // Create stock_data table
-    await appClient.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS stock_data (
         id SERIAL PRIMARY KEY,
         company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
@@ -90,24 +73,7 @@ const setupDatabase = async () => {
       )
     `);
 
-    // Create indexes for better performance
-    await appClient.query(`
-      CREATE INDEX IF NOT EXISTS idx_stock_data_company_date 
-      ON stock_data(company_id, date DESC)
-    `);
-
-    await appClient.query(`
-      CREATE INDEX IF NOT EXISTS idx_companies_symbol 
-      ON companies(symbol)
-    `);
-
-    await appClient.query(`
-      CREATE INDEX IF NOT EXISTS idx_companies_sector 
-      ON companies(sector)
-    `);
-
     console.log("📈 Inserting sample companies...");
-
     // Insert sample companies
     const companies = [
       {
@@ -221,7 +187,7 @@ const setupDatabase = async () => {
     ];
 
     for (const company of companies) {
-      await appClient.query(
+      await client.query(
         `
         INSERT INTO companies (symbol, name, sector, market_cap, description, website) 
         VALUES ($1, $2, $3, $4, $5, $6) 
@@ -270,7 +236,7 @@ const setupDatabase = async () => {
         );
 
         try {
-          await appClient.query(
+          await client.query(
             `
             INSERT INTO stock_data (company_id, date, open_price, high_price, low_price, close_price, adj_close_price, volume)
             VALUES ($1, $2, $3, $4, $5, $6, $6, $7)
@@ -299,7 +265,7 @@ const setupDatabase = async () => {
     };
 
     // Get all companies and generate data
-    const companiesResult = await appClient.query(
+    const companiesResult = await client.query(
       "SELECT id, symbol FROM companies"
     );
     const basePrices = {
@@ -323,31 +289,26 @@ const setupDatabase = async () => {
       console.log(`✅ Generated data for ${company.symbol}`);
     }
 
-    appClient.release();
-    await appPool.end();
+    client.release();
 
     console.log("🎉 Database setup completed successfully!");
     console.log("📊 Sample data has been inserted");
     console.log("🚀 You can now start the server with: npm start");
-  } catch (error) {
-    console.error("❌ Database setup failed:", error);
-    throw error;
+  } catch (err) {
+    console.error("❌ Database setup failed:", err);
   } finally {
+    client.release();
     await pool.end();
   }
 };
 
-// Run setup if called directly
 if (require.main === module) {
   setupDatabase()
     .then(() => {
       console.log("✅ Setup completed successfully");
       process.exit(0);
     })
-    .catch((error) => {
-      console.error("❌ Setup failed:", error);
-      process.exit(1);
-    });
+    .catch(() => process.exit(1));
 }
 
 module.exports = { setupDatabase };
