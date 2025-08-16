@@ -9,18 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(
-  cors({
-    origin: "https://stock-market-dashboard-rho.vercel.app/", // frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 // API Routes
-const companies = require("./routes/companies");
-const stocks = require("./routes/stocks");
 // Get all companies
 
 // app.use("/api/companies", companies);
