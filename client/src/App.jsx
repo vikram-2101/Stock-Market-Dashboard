@@ -25,7 +25,11 @@ const App = () => {
 
   // Set first company as selected when companies load (for legacy view)
   React.useEffect(() => {
-    if (companies.length > 0 && !selectedCompany && currentView === "legacy") {
+    if (
+      companies.length > 0 &&
+      !selectedCompany &&
+      currentView === "dashboard"
+    ) {
       setSelectedCompany(companies[0]);
     }
   }, [companies, selectedCompany, currentView]);
@@ -85,7 +89,7 @@ const App = () => {
 
       {/* Main Content */}
       <main>
-        {currentView === "dashboard" ? (
+        {currentView === "legacy" ? (
           // New Enhanced Dashboard
           <StockDashboard />
         ) : (

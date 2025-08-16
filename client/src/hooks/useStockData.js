@@ -1,9 +1,8 @@
 // frontend/src/hooks/useStockData.js
 import { useState, useEffect } from "react";
 
-const API_BASE_URL =
-  import.meta.env.REACT_APP_API_URL || "http://localhost:5000/api";
-
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+console.log(API_BASE_URL);
 // Hook for fetching companies
 export const useCompanies = () => {
   const [companies, setCompanies] = useState([]);
