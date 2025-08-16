@@ -1,0 +1,40 @@
+{
+  "name": "stock-market-backend",
+  "version": "1.0.0",
+  "description": "Stock Market Dashboard Backend API with PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "test": "jest",
+    "db:setup": "node scripts/setupDatabase.js"
+  },
+  "keywords": [
+    "stock",
+    "market",
+    "api",
+    "postgresql",
+    "nodejs",
+    "express"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "jest": "^29.6.2",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}
