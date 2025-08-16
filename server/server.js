@@ -1,7 +1,8 @@
 // server.js - Node.js Express Server with PostgreSQL
 const express = require("express");
 const cors = require("cors");
-const { Pool } = require("pg");
+// const { Pool } = require("pg");
+const pool = require("./config/database");
 require("dotenv").config();
 const { setupDatabase } = require("./scripts/setupDatabase");
 const app = express();
@@ -11,13 +12,6 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const pool = new Pool({
-  user: process.env.DB_USER || "postgres",
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_NAME || "stockmarket",
-  password: process.env.DB_PASSWORD || "password",
-  port: process.env.DB_PORT || 5432,
-});
 // API Routes
 const companies = require("./routes/companies");
 const stocks = require("./routes/stocks");
@@ -254,7 +248,9 @@ const startServer = async () => {
 
     app.listen(PORT, () => {
       console.log(`✅ Server running on port ${PORT}`);
-      console.log(`🚀 API endpoints available at http://localhost:${PORT}/api`);
+      console.log(
+        `🚀 API endpoints available at https://stock-market-dashboard-l9mv.onrender.com/api`
+      );
       console.log(`📊 Database: PostgreSQL connected`);
     });
   } catch (error) {
