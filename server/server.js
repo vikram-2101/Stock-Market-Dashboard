@@ -23,45 +23,45 @@ const companies = require("./routes/companies");
 const stocks = require("./routes/stocks");
 // Get all companies
 
-app.use("/api/companies", companies);
-app.use("api/companies", stocks);
-// app.get("/api/companies", async (req, res) => {
-//   try {
-//     const result = await pool.query(`
-//       SELECT id, symbol, name, sector, exchange
-//       FROM companies
-//       ORDER BY name
-//     `);
-//     res.json(result.rows);
-//   } catch (error) {
-//     console.error("Error fetching companies:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
+// app.use("/api/companies", companies);
+// app.use("api/companies", stocks);
+app.get("/api/companies", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, symbol, name, sector, exchange
+      FROM companies
+      ORDER BY name
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching companies:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
-// // Get company by ID
-// app.get("/api/companies/:id", async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const result = await pool.query(
-//       `
-//       SELECT id, symbol, name, sector, exchange
-//       FROM companies
-//       WHERE id = $1
-//     `,
-//       [id]
-//     );
+// Get company by ID
+app.get("/api/companies/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      `
+      SELECT id, symbol, name, sector, exchange
+      FROM companies
+      WHERE id = $1
+    `,
+      [id]
+    );
 
-//     if (result.rows.length === 0) {
-//       return res.status(404).json({ error: "Company not found" });
-//     }
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Company not found" });
+    }
 
-//     res.json(result.rows[0]);
-//   } catch (error) {
-//     console.error("Error fetching company:", error);
-//     res.status(500).json({ error: "Internal server error" });
-//   }
-// });
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching company:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // Get stock data for a company
 app.get("/api/companies/:id/stock-data", async (req, res) => {
