@@ -16,21 +16,18 @@ A modern React-based web application for tracking Indian stock market data in re
 ## 🚀 Features
 
 ### 📊 Market Overview
-
 - Real-time market indices (NIFTY 50, SENSEX, BANK NIFTY)
 - Market statistics (gainers, losers, unchanged stocks)
 - Visual indicators with trend arrows
 - Live percentage changes with color coding
 
 ### 📈 Interactive Stock Charts
-
 - Dynamic time range selection (1W, 1M, 3M, 6M, 1Y)
 - Responsive line charts with hover tooltips
 - Real-time price data visualization
 - Clean and modern chart interface using Recharts
 
 ### 🏢 Company Management
-
 - Comprehensive company listings
 - Advanced search functionality
 - Real-time stock prices and changes
@@ -38,7 +35,6 @@ A modern React-based web application for tracking Indian stock market data in re
 - Click-to-select company details
 
 ### 📋 Company Details Panel
-
 - Complete financial metrics
 - Current price, P/E ratio, dividend yield
 - 52-week high/low tracking
@@ -46,7 +42,6 @@ A modern React-based web application for tracking Indian stock market data in re
 - Company description and sector info
 
 ### 🔥 Top Movers Section
-
 - Live top gainers and losers
 - Quick access to high-performing stocks
 - Real-time percentage changes
@@ -95,13 +90,12 @@ frontend/
 
 ### Prerequisites
 
-- Node.js (v16.0.0 or higher)
+- Node.js (v16.0.0 or higher)  
 - npm (v8.0.0 or higher)
 - **Backend API server running on port 5000** (PostgreSQL-based)
 - **PostgreSQL database** (v12 or higher) - handled by backend
 
 ### Backend Dependencies
-
 Before running the frontend, ensure the backend is properly set up:
 
 1. **PostgreSQL Database** with stock market data
@@ -113,28 +107,24 @@ Before running the frontend, ensure the backend is properly set up:
 ### Installation
 
 1. **Clone the repository**
-
    ```bash
    git clone <repository-url>
    cd stock-dashboard/frontend
    ```
 
 2. **Install dependencies**
-
    ```bash
    npm install
    ```
 
 3. **Environment Configuration**
    Create a `.env` file in the root directory:
-
    ```env
    REACT_APP_API_URL=http://localhost:5000/api
    REACT_APP_NAME=Stock Dashboard
    ```
 
 4. **Start the development server**
-
    ```bash
    npm run dev
    ```
@@ -145,14 +135,12 @@ Before running the frontend, ensure the backend is properly set up:
 ## 📜 Available Scripts
 
 ### Development
-
 - `npm start` - Start development server with hot reload
 - `npm test` - Run test suite in watch mode
 - `npm run build` - Create optimized production build
 - `npm run eject` - Eject from Create React App (⚠️ irreversible)
 
 ### Production
-
 - `npm run build` - Build for production deployment
 - `serve -s build` - Serve production build locally
 
@@ -160,10 +148,10 @@ Before running the frontend, ensure the backend is properly set up:
 
 ### Environment Variables
 
-| Variable            | Description          | Default                     | Required |
-| ------------------- | -------------------- | --------------------------- | -------- |
-| `REACT_APP_API_URL` | Backend API base URL | `http://localhost:5000/api` | ✅       |
-| `REACT_APP_NAME`    | Application name     | `Stock Dashboard`           | ❌       |
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `REACT_APP_API_URL` | Backend API base URL | `http://localhost:5000/api` | ✅ |
+| `REACT_APP_NAME` | Application name | `Stock Dashboard` | ❌ |
 
 ### API Integration
 
@@ -171,7 +159,7 @@ The frontend communicates with the backend through RESTful APIs:
 
 ```javascript
 // Example API usage
-import apiService from "./services/api";
+import apiService from './services/api';
 
 // Fetch all companies
 const companies = await apiService.getCompanies();
@@ -180,37 +168,32 @@ const companies = await apiService.getCompanies();
 const stockData = await apiService.getStockData(companyId, 30);
 
 // Search companies
-const results = await apiService.searchCompanies("RELIANCE");
+const results = await apiService.searchCompanies('RELIANCE');
 ```
 
 ## 🎨 UI Components
 
 ### CompanyList
-
 - **Purpose**: Display searchable list of companies
 - **Features**: Real-time search, price display, selection state
 - **Props**: `onCompanySelect`, `selectedCompanyId`
 
 ### StockChart
-
 - **Purpose**: Render interactive stock price charts
 - **Features**: Multiple timeframes, tooltips, responsive design
 - **Props**: `companyId`, `companySymbol`
 
 ### CompanyDetails
-
 - **Purpose**: Show comprehensive company information
 - **Features**: Financial metrics, descriptions, formatted values
 - **Props**: `company`
 
 ### TopMovers
-
 - **Purpose**: Show top gaining and losing stocks
 - **Features**: Real-time updates, quick selection, trend arrows
 - **Props**: `companies`, `onCompanySelect`
 
 ### MarketOverview
-
 - **Purpose**: Display market indices and statistics
 - **Features**: Live data, trend indicators, statistics grid
 - **Props**: None (uses hooks internally)
@@ -218,31 +201,25 @@ const results = await apiService.searchCompanies("RELIANCE");
 ## 🎛️ Custom Hooks
 
 ### useStockData
-
 ```javascript
 const { stockData, loading, error, refetch } = useStockData(companyId, days);
 ```
-
 - Fetches historical stock data for charts
 - Handles loading states and error management
 - Auto-refetches when dependencies change
 
 ### useCompanies
-
 ```javascript
 const { companies, loading, error, refetch } = useCompanies();
 ```
-
 - Retrieves all company listings
 - Provides search and filtering capabilities
 - Manages company selection state
 
 ### useMarketSummary
-
 ```javascript
 const { marketData, loading, error, refetch } = useMarketSummary();
 ```
-
 - Fetches market indices and statistics
 - Real-time market overview data
 - Error handling for market data failures
@@ -250,7 +227,6 @@ const { marketData, loading, error, refetch } = useMarketSummary();
 ## 🎯 Utility Functions
 
 ### formatters.js
-
 - `formatPrice(price)` - Format currency in Indian Rupees
 - `formatVolume(volume)` - Format volume with K, L, Cr suffixes
 - `formatMarketCap(marketCap)` - Format market capitalization
@@ -262,7 +238,6 @@ const { marketData, loading, error, refetch } = useMarketSummary();
 The application uses Tailwind CSS for styling with a consistent design system:
 
 ### Color Palette
-
 - **Primary Blue**: `bg-blue-600`, `text-blue-600`
 - **Success Green**: `bg-green-600`, `text-green-600`
 - **Error Red**: `bg-red-600`, `text-red-600`
@@ -270,7 +245,6 @@ The application uses Tailwind CSS for styling with a consistent design system:
 - **Neutral Gray**: `bg-gray-50`, `text-gray-600`
 
 ### Component Classes
-
 - Cards: `bg-white rounded-lg shadow-md p-6`
 - Buttons: `px-3 py-2 rounded-md font-medium transition-colors`
 - Input Fields: `px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2`
@@ -278,19 +252,16 @@ The application uses Tailwind CSS for styling with a consistent design system:
 ## 🚀 Performance Optimizations
 
 ### Code Splitting
-
 - Automatic code splitting with Create React App
 - Dynamic imports for heavy components
 - Optimized bundle sizes
 
 ### Data Fetching
-
 - Custom hooks for efficient API calls
 - Error boundaries for graceful error handling
 - Loading states for better user experience
 
 ### Rendering Optimizations
-
 - React.memo for expensive components
 - useCallback for stable function references
 - Efficient re-rendering patterns
@@ -300,7 +271,6 @@ The application uses Tailwind CSS for styling with a consistent design system:
 ### Common Issues
 
 **API Connection Failed**
-
 ```bash
 # Check if backend is running
 curl http://localhost:5000/api/companies
@@ -310,13 +280,11 @@ echo $REACT_APP_API_URL
 ```
 
 **Charts Not Rendering**
-
 - Ensure Recharts is properly installed
 - Check console for JavaScript errors
 - Verify data format matches expected structure
 
 **Search Not Working**
-
 - Check network tab for API calls
 - Verify search endpoint is accessible
 - Ensure proper query parameter encoding
@@ -324,11 +292,10 @@ echo $REACT_APP_API_URL
 ### Development Tips
 
 1. **Hot Reload Issues**
-
    ```bash
    # Clear Vite cache
    npm run dev -- --force
-
+   
    # Or delete .vite cache folder
    rm -rf node_modules/.vite
    ```
@@ -356,14 +323,12 @@ echo $REACT_APP_API_URL
 ### Backend Integration Tips
 
 1. **Start Backend First**
-
    ```bash
    # In backend directory
    npm run dev  # Starts backend on port 5000
    ```
 
 2. **Verify Backend Health**
-
    ```bash
    # Test backend connectivity
    curl http://localhost:5000/api/health
@@ -371,17 +336,16 @@ echo $REACT_APP_API_URL
    ```
 
 3. **Database Connection Issues**
-
    ```bash
    # Check PostgreSQL status
    sudo systemctl status postgresql
-
+   
    # Connect to database manually
    sudo -u postgres psql -d stockmarket
-
+   
    # Verify tables exist
    \dt
-
+   
    # Check sample data
    SELECT COUNT(*) FROM companies;
    SELECT COUNT(*) FROM stock_data;
@@ -406,7 +370,6 @@ The application uses React's built-in state management:
 ## 🧪 Testing Strategy
 
 ### Unit Testing
-
 ```bash
 # Run tests
 npm test
@@ -416,13 +379,11 @@ npm test -- --coverage
 ```
 
 ### Component Testing
-
 - Test component rendering
 - Verify user interactions
 - Mock API calls for isolation
 
 ### Integration Testing
-
 - Test component communication
 - Verify data flow between components
 - Test error handling scenarios
@@ -430,7 +391,6 @@ npm test -- --coverage
 ## 🚀 Deployment
 
 ### Production Build
-
 ```bash
 # Create optimized build
 npm run build
@@ -440,14 +400,12 @@ npx serve -s build
 ```
 
 ### Environment Setup
-
 1. Set production API URL
 2. Configure web server (Nginx/Apache)
 3. Enable gzip compression
 4. Set up SSL certificates
 
 ### Hosting Options
-
 - **Netlify**: Automatic deployments from Git
 - **Vercel**: Optimized for React applications
 - **AWS S3**: Static website hosting
@@ -456,14 +414,12 @@ npx serve -s build
 ## 📈 Performance Metrics
 
 ### Lighthouse Scores (Target)
-
 - **Performance**: 90+
 - **Accessibility**: 95+
 - **Best Practices**: 95+
 - **SEO**: 90+
 
 ### Bundle Analysis
-
 ```bash
 # Analyze bundle size
 npm run build
@@ -479,7 +435,6 @@ npx webpack-bundle-analyzer build/static/js/*.js
 5. Open Pull Request
 
 ### Code Style
-
 - Use ESLint configuration
 - Follow React best practices
 - Maintain consistent formatting
@@ -492,7 +447,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🆘 Support
 
 For support and questions:
-
 - Create an issue in the repository
 - Check existing documentation
 - Review troubleshooting section
