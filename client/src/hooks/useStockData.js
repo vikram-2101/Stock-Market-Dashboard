@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-console.log(API_BASE_URL);
+console.log("here is the url", API_BASE_URL);
 // Hook for fetching companies
 export const useCompanies = () => {
   const [companies, setCompanies] = useState([]);
@@ -84,36 +84,23 @@ export const useRealTimePrice = (companyId) => {
   useEffect(() => {
     if (!companyId) return;
 
-    const ws = new WebSocket(`ws://localhost:5000/ws/price/${companyId}`);
-
-    ws.onopen = () => {
-      setConnected(true);
-      console.log("✅ WebSocket connected for company:", companyId);
-    };
-
-    ws.onmessage = (event) => {
+    const fetchPrice = async () => {
       try {
-        const data = JSON.parse(event.data);
-        setPrice(data); // Or `data.price` if that's your format
+        const res = await fetch(`/api/companies/${companyId}/price`);
+        const data = await res.json();
+        setPrice(data.price);
+        setConnected(true);
       } catch (err) {
-        console.error("❌ Error parsing WebSocket message:", err);
+        console.error("❌ Error fetching price:", err);
+        setConnected(false);
       }
     };
 
-    ws.onclose = () => {
-      setConnected(false);
-      console.log("🔌 WebSocket disconnected");
-    };
+    fetchPrice(); // first call immediately
+    const interval = setInterval(fetchPrice, 5000); // poll every 5s
 
-    ws.onerror = (error) => {
-      console.error("⚠️ WebSocket error:", error);
-      setConnected(false);
-    };
-
-    return () => {
-      ws.close();
-    };
+    return () => clearInterval(interval);
   }, [companyId]);
 
-  return { price, connected };
+  return { price, connected }; // ✅ same shape as useRealTimePrice
 };
