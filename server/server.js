@@ -1,10 +1,7 @@
-// server.js - Node.js Express Server with PostgreSQL
 const express = require("express");
 const cors = require("cors");
-// const { Pool } = require("pg");
 const pool = require("./config/database");
 require("dotenv").config();
-const { setupDatabase } = require("./scripts/setupDatabase");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -13,10 +10,9 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
+
 // Get all companies
 
-// app.use("/api/companies", companies);
-// app.use("api/companies", stocks);
 app.get("/api/companies", async (req, res) => {
   try {
     const result = await pool.query(`
@@ -241,7 +237,7 @@ app.use("*", (req, res) => {
 // Start server
 const startServer = async () => {
   try {
-    await setupDatabase();
+    await pool.connect();
     //await seedStockData();
 
     app.listen(PORT, () => {
