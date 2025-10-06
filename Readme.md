@@ -1,8 +1,18 @@
+<p align="center">
+  <img src="./assets/hacktoberfest_banner.jpeg" alt="Hacktoberfest 2025 Banner" width="100%" />
+</p>
+
 # Stock Dashboard Frontend
 
 ***
 
 ### 💖 Hacktoberfest 2025
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Hacktoberfest-2025-blueviolet?style=for-the-badge&logo=github" />
+  <img src="https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge&logo=git" />
+  <img src="https://img.shields.io/github/license/vikram-2101/Stock-Market-Dashboard?style=for-the-badge" />
+</p>
 
 This repository is participating in Hacktoberfest 2025! We welcome and encourage new contributors to help us improve this project.
 
