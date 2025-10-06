@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/hacktoberfest_banner.jpeg" alt="Hacktoberfest 2025 Banner" width="100%" />
+  <img src="./hacktoberfest_banner.jpeg" alt="Hacktoberfest 2025 Banner" width="100%" />
 </p>
 
 # Stock Dashboard Frontend
