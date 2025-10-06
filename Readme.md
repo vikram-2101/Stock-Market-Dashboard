@@ -1,5 +1,18 @@
 # Stock Dashboard Frontend
 
+***
+
+### 💖 Hacktoberfest 2025
+
+This repository is participating in Hacktoberfest 2025! We welcome and encourage new contributors to help us improve this project.
+
+* **Find an Issue:** Look for issues with the **`hacktoberfest`** and **`good first issue`** labels to get started.
+* **Contribute:** Read our [CONTRIBUTING.md](CONTRIBUTING.md) guide for instructions on how to set up the project, make changes, and submit a pull request.
+* **Join our Community:** Please review our [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) to ensure a positive and inclusive environment for everyone.
+
+***
+
+
 A modern React-based web application for tracking Indian stock market data in real-time. This frontend provides an intuitive interface for viewing market overviews, company details, stock charts, and top movers.
 
 **🔗 Backend Integration**: This frontend works with a Node.js/Express backend API using PostgreSQL database. See [Backend README](../backend/README.md) for complete backend setup instructions.
