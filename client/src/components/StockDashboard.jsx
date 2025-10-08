@@ -111,7 +111,7 @@ const StockDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
       {/* Dashboard Header */}
       <DashboardHeader
         selectedCompany={selectedCompany}
@@ -169,23 +169,23 @@ const DashboardHeader = ({
   dashboardView,
   onViewChange,
 }) => (
-  <header className="bg-white shadow-sm border-b sticky top-0 z-10">
+  <header className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-10 transition-colors duration-200">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between items-center py-4">
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
-            <BarChart3 className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+            <BarChart3 className="h-8 w-8 text-blue-600 dark:text-blue-400 mr-3" />
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
           </div>
 
           {/* View Selector */}
-          <div className="flex rounded-lg border bg-gray-50">
+          <div className="flex rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700">
             <button
               onClick={() => onViewChange("overview")}
               className={`px-4 py-2 text-sm font-medium rounded-l-lg transition-colors ${
                 dashboardView === "overview"
                   ? "bg-blue-600 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
+                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
               }`}
             >
               Overview
@@ -195,7 +195,7 @@ const DashboardHeader = ({
               className={`px-4 py-2 text-sm font-medium rounded-r-lg transition-colors ${
                 dashboardView === "detailed"
                   ? "bg-blue-600 text-white"
-                  : "text-gray-600 hover:bg-gray-100"
+                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
               }`}
             >
               Detailed
@@ -209,14 +209,14 @@ const DashboardHeader = ({
             <div
               className={`w-2 h-2 rounded-full ${connected ? "bg-green-500" : "bg-red-500"}`}
             />
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               {connected ? "Live Data" : "Offline"}
             </span>
           </div>
 
           {/* Selected Company */}
           {selectedCompany && (
-            <div className="text-sm font-medium text-gray-700 bg-gray-100 px-3 py-1 rounded-lg">
+            <div className="text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-lg">
               {selectedCompany.symbol}
             </div>
           )}
@@ -225,7 +225,7 @@ const DashboardHeader = ({
           <button
             onClick={onRefresh}
             disabled={refreshing}
-            className="btn-secondary flex items-center space-x-2"
+            className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center space-x-2"
           >
             <RefreshCw
               className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
@@ -263,25 +263,25 @@ const OverviewDashboard = ({
           value={formatCurrency(marketSummary.totalMarketCap, {
             compact: true,
           })}
-          icon={<DollarSign className="h-6 w-6 text-blue-600" />}
+          icon={<DollarSign className="h-6 w-6 text-blue-600 dark:text-blue-400" />}
           trend="neutral"
         />
         <MetricCard
           title="Gainers"
           value={marketSummary.gainers}
-          icon={<TrendingUp className="h-6 w-6 text-green-600" />}
+          icon={<TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />}
           trend="positive"
         />
         <MetricCard
           title="Losers"
           value={marketSummary.losers}
-          icon={<TrendingDown className="h-6 w-6 text-red-600" />}
+          icon={<TrendingDown className="h-6 w-6 text-red-600 dark:text-red-400" />}
           trend="negative"
         />
         <MetricCard
           title="Unchanged"
           value={marketSummary.unchanged}
-          icon={<Activity className="h-6 w-6 text-gray-600" />}
+          icon={<Activity className="h-6 w-6 text-gray-600 dark:text-gray-400" />}
           trend="neutral"
         />
       </div>
@@ -351,7 +351,7 @@ const DetailedDashboard = ({
 }) => (
   <div className="space-y-6">
     {/* Company Selector */}
-    <div className="bg-white rounded-lg shadow-sm border p-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
       <select
         value={selectedCompany?.id || ""}
         onChange={(e) => {
@@ -360,7 +360,7 @@ const DetailedDashboard = ({
           );
           onSelectCompany(company);
         }}
-        className="form-select w-full max-w-md"
+        className="w-full max-w-md bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         <option value="">Select a company...</option>
         {companies.map((company) => (
@@ -408,17 +408,17 @@ const DetailedDashboard = ({
 // Supporting Components
 
 const MetricCard = ({ title, value, icon, trend }) => (
-  <div className="bg-white rounded-lg shadow-sm border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-gray-300">
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-sm font-medium text-gray-600">{title}</p>
+        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}</p>
         <p
           className={`text-2xl font-bold ${
             trend === "positive"
-              ? "text-green-600"
+              ? "text-green-600 dark:text-green-400"
               : trend === "negative"
-                ? "text-red-600"
-                : "text-gray-900"
+                ? "text-red-600 dark:text-red-400"
+                : "text-gray-900 dark:text-white"
           }`}
         >
           {value}
@@ -436,9 +436,9 @@ const CompanyListPanel = ({
   watchlist,
   onToggleWatchlist,
 }) => (
-  <div className="bg-white rounded-lg shadow-sm border">
-    <div className="p-4 border-b">
-      <h3 className="text-lg font-semibold text-gray-900">Companies</h3>
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 transition-colors duration-200">
+    <div className="p-4 border-b dark:border-gray-600">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Companies</h3>
     </div>
     <div className="max-h-96 overflow-y-auto">
       {companies.slice(0, 10).map((company) => {
@@ -450,14 +450,14 @@ const CompanyListPanel = ({
           <div
             key={company.id}
             onClick={() => onSelectCompany(company)}
-            className={`p-3 border-b cursor-pointer hover:bg-gray-50 transition-colors ${
+            className={`p-3 border-b dark:border-gray-600 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${
               selectedCompany?.id === company.id
-                ? "bg-blue-50 border-r-4 border-r-blue-600"
+                ? "bg-blue-50 dark:bg-blue-900/20 border-r-4 border-r-blue-600 dark:border-r-blue-400"
                 : ""
             }`}
           >
             <div className="flex items-center justify-between mb-1">
-              <div className="font-medium text-sm text-gray-900 truncate">
+              <div className="font-medium text-sm text-gray-900 dark:text-white truncate">
                 {company.name}
               </div>
               <button
@@ -465,7 +465,7 @@ const CompanyListPanel = ({
                   e.stopPropagation();
                   onToggleWatchlist(company);
                 }}
-                className="text-gray-400 hover:text-yellow-500"
+                className="text-gray-400 dark:text-gray-500 hover:text-yellow-500"
               >
                 <Star
                   className={`h-4 w-4 ${
@@ -477,13 +477,13 @@ const CompanyListPanel = ({
               </button>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-500">{company.symbol}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">{company.symbol}</span>
               <div className="text-right">
-                <div className="text-sm font-medium">
+                <div className="text-sm font-medium text-gray-900 dark:text-white">
                   {formatCurrency(company.current_price)}
                 </div>
                 <div
-                  className={`text-xs ${change.isPositive ? "text-green-600" : "text-red-600"}`}
+                  className={`text-xs ${change.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
                 >
                   {change.percentage}
                 </div>
@@ -501,21 +501,21 @@ const PriceHeader = ({ company, realTimePrice }) => {
   const change = formatPriceChange(currentPrice, company.previous_close);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6 transition-colors duration-200">
       <div className="flex items-start justify-between">
         <div>
-          <h2 className="text-3xl font-bold text-gray-900">{company.name}</h2>
-          <p className="text-gray-600">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{company.name}</h2>
+          <p className="text-gray-600 dark:text-gray-300">
             {company.symbol} • {company.sector}
           </p>
         </div>
         <div className="text-right">
-          <div className="text-4xl font-bold text-gray-900">
+          <div className="text-4xl font-bold text-gray-900 dark:text-white">
             {formatCurrency(currentPrice)}
           </div>
           <div
             className={`text-lg font-medium ${
-              change.isPositive ? "text-green-600" : "text-red-600"
+              change.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
             }`}
           >
             {change.absolute} ({change.percentage})
@@ -532,7 +532,7 @@ const ChartControls = ({
   timeframe,
   onTimeframeChange,
 }) => (
-  <div className="bg-white rounded-lg shadow-sm border p-4">
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
     <div className="flex items-center justify-between">
       <div className="flex space-x-2">
         {["line", "area", "candlestick"].map((type) => (
@@ -542,7 +542,7 @@ const ChartControls = ({
             className={`px-3 py-1 text-sm font-medium rounded transition-colors ${
               chartType === type
                 ? "bg-blue-600 text-white"
-                : "text-gray-600 hover:bg-gray-100"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
           >
             {type.charAt(0).toUpperCase() + type.slice(1)}
@@ -558,7 +558,7 @@ const ChartControls = ({
             className={`px-3 py-1 text-sm font-medium rounded transition-colors ${
               timeframe === period
                 ? "bg-blue-600 text-white"
-                : "text-gray-600 hover:bg-gray-100"
+                : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
           >
             {period}
@@ -572,9 +572,9 @@ const ChartControls = ({
 const MainChart = ({ stockData, loading, chartType, companyName }) => {
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6 transition-colors duration-200">
         <div className="animate-pulse">
-          <div className="h-80 bg-gray-200 rounded" />
+          <div className="h-80 bg-gray-200 dark:bg-gray-600 rounded" />
         </div>
       </div>
     );
@@ -582,11 +582,11 @@ const MainChart = ({ stockData, loading, chartType, companyName }) => {
 
   if (!stockData || stockData.length === 0) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6 transition-colors duration-200">
         <div className="h-80 flex items-center justify-center">
           <div className="text-center">
-            <BarChart3 className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-            <p className="text-gray-600">No chart data available</p>
+            <BarChart3 className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-2" />
+            <p className="text-gray-600 dark:text-gray-400">No chart data available</p>
           </div>
         </div>
       </div>
@@ -607,24 +607,24 @@ const MainChart = ({ stockData, loading, chartType, companyName }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white p-3 border rounded-lg shadow-lg">
-          <p className="text-sm font-medium text-gray-900 mb-2">
+        <div className="bg-white dark:bg-gray-800 p-3 border dark:border-gray-600 rounded-lg shadow-lg">
+          <p className="text-sm font-medium text-gray-900 dark:text-white mb-2">
             {formatDate(new Date(label))}
           </p>
           <div className="space-y-1">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">Price:</span>{" "}
               {formatCurrency(data.price)}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">High:</span>{" "}
               {formatCurrency(data.high)}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">Low:</span>{" "}
               {formatCurrency(data.low)}
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-gray-300">
               <span className="font-medium">Volume:</span>{" "}
               {formatNumber(data.volume)}
             </p>
@@ -636,9 +636,9 @@ const MainChart = ({ stockData, loading, chartType, companyName }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border">
-      <div className="p-4 border-b">
-        <h3 className="text-lg font-semibold text-gray-900">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 transition-colors duration-200">
+      <div className="p-4 border-b dark:border-gray-600">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
           {companyName} Price Chart
         </h3>
       </div>
@@ -715,27 +715,27 @@ const QuickStats = ({ company, stockData }) => {
 
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div className="bg-white rounded-lg shadow-sm border p-4">
-        <p className="text-sm text-gray-600">Day High</p>
-        <p className="text-lg font-semibold text-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Day High</p>
+        <p className="text-lg font-semibold text-gray-900 dark:text-white">
           {formatCurrency(high)}
         </p>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border p-4">
-        <p className="text-sm text-gray-600">Day Low</p>
-        <p className="text-lg font-semibold text-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Day Low</p>
+        <p className="text-lg font-semibold text-gray-900 dark:text-white">
           {formatCurrency(low)}
         </p>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border p-4">
-        <p className="text-sm text-gray-600">Avg Volume</p>
-        <p className="text-lg font-semibold text-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Avg Volume</p>
+        <p className="text-lg font-semibold text-gray-900 dark:text-white">
           {formatNumber(avgVolume, { compact: true })}
         </p>
       </div>
-      <div className="bg-white rounded-lg shadow-sm border p-4">
-        <p className="text-sm text-gray-600">Market Cap</p>
-        <p className="text-lg font-semibold text-gray-900">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
+        <p className="text-sm text-gray-600 dark:text-gray-400">Market Cap</p>
+        <p className="text-lg font-semibold text-gray-900 dark:text-white">
           {formatCurrency(company.market_cap, { compact: true })}
         </p>
       </div>
@@ -748,37 +748,37 @@ const CompanyInfoCard = ({ company, realTimePrice }) => {
   const change = formatPriceChange(currentPrice, company.previous_close);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6 transition-colors duration-200">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Company Information
       </h3>
       <div className="space-y-3">
         <div className="flex justify-between">
-          <span className="text-gray-600">Current Price</span>
-          <span className="font-semibold">{formatCurrency(currentPrice)}</span>
+          <span className="text-gray-600 dark:text-gray-400">Current Price</span>
+          <span className="font-semibold text-gray-900 dark:text-white">{formatCurrency(currentPrice)}</span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-600">Change</span>
+          <span className="text-gray-600 dark:text-gray-400">Change</span>
           <span
-            className={`font-semibold ${change.isPositive ? "text-green-600" : "text-red-600"}`}
+            className={`font-semibold ${change.isPositive ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
           >
             {change.absolute} ({change.percentage})
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-600">Market Cap</span>
-          <span className="font-semibold">
+          <span className="text-gray-600 dark:text-gray-400">Market Cap</span>
+          <span className="font-semibold text-gray-900 dark:text-white">
             {formatCurrency(company.market_cap, { compact: true })}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-gray-600">Sector</span>
-          <span className="font-semibold">{company.sector}</span>
+          <span className="text-gray-600 dark:text-gray-400">Sector</span>
+          <span className="font-semibold text-gray-900 dark:text-white">{company.sector}</span>
         </div>
         {company.pe_ratio && (
           <div className="flex justify-between">
-            <span className="text-gray-600">P/E Ratio</span>
-            <span className="font-semibold">{company.pe_ratio.toFixed(2)}</span>
+            <span className="text-gray-600 dark:text-gray-400">P/E Ratio</span>
+            <span className="font-semibold text-gray-900 dark:text-white">{company.pe_ratio.toFixed(2)}</span>
           </div>
         )}
       </div>
@@ -798,24 +798,24 @@ const TechnicalIndicators = ({ stockData }) => {
       : null;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6 transition-colors duration-200">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
         Technical Indicators
       </h3>
       <div className="space-y-3">
         <div className="flex justify-between">
-          <span className="text-gray-600">SMA (20)</span>
-          <span className="font-semibold">{formatCurrency(sma20)}</span>
+          <span className="text-gray-600 dark:text-gray-400">SMA (20)</span>
+          <span className="font-semibold text-gray-900 dark:text-white">{formatCurrency(sma20)}</span>
         </div>
         {sma50 && (
           <div className="flex justify-between">
-            <span className="text-gray-600">SMA (50)</span>
-            <span className="font-semibold">{formatCurrency(sma50)}</span>
+            <span className="text-gray-600 dark:text-gray-400">SMA (50)</span>
+            <span className="font-semibold text-gray-900 dark:text-white">{formatCurrency(sma50)}</span>
           </div>
         )}
         <div className="flex justify-between">
-          <span className="text-gray-600">RSI</span>
-          <span className="font-semibold">--</span>
+          <span className="text-gray-600 dark:text-gray-400">RSI</span>
+          <span className="font-semibold text-gray-900 dark:text-white">--</span>
         </div>
       </div>
     </div>
@@ -831,9 +831,9 @@ const VolumeChart = ({ stockData, loading }) => {
   }));
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border">
-      <div className="p-4 border-b">
-        <h3 className="text-lg font-semibold text-gray-900">Volume</h3>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 transition-colors duration-200">
+      <div className="p-4 border-b dark:border-gray-600">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Volume</h3>
       </div>
       <div className="p-4">
         <div className="h-32">
@@ -868,10 +868,10 @@ const VolumeChart = ({ stockData, loading }) => {
 };
 
 const EmptyState = () => (
-  <div className="bg-white rounded-lg shadow-sm border p-12 text-center">
-    <BarChart3 className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-    <h3 className="text-lg font-medium text-gray-900 mb-2">Select a Company</h3>
-    <p className="text-gray-600">
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-12 text-center transition-colors duration-200">
+    <BarChart3 className="h-16 w-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">Select a Company</h3>
+    <p className="text-gray-600 dark:text-gray-400">
       Choose a company from the list to view detailed stock information and
       interactive charts
     </p>
@@ -879,15 +879,15 @@ const EmptyState = () => (
 );
 
 const DashboardSkeleton = () => (
-  <div className="min-h-screen bg-gray-50">
-    <div className="bg-white shadow-sm border-b">
+  <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <div className="skeleton w-8 h-8 rounded" />
-            <div className="skeleton w-48 h-8 rounded" />
+            <div className="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
+            <div className="w-48 h-8 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
           </div>
-          <div className="skeleton w-32 h-8 rounded" />
+          <div className="w-32 h-8 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
         </div>
       </div>
     </div>
@@ -895,29 +895,29 @@ const DashboardSkeleton = () => (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         {[...Array(4)].map((_, i) => (
-          <div key={i} className="bg-white rounded-lg shadow-sm border p-4">
-            <div className="skeleton w-full h-16 rounded" />
+          <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4">
+            <div className="w-full h-16 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-sm border">
-            <div className="p-4 border-b">
-              <div className="skeleton w-24 h-6 rounded" />
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700">
+            <div className="p-4 border-b dark:border-gray-600">
+              <div className="w-24 h-6 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
             </div>
             <div className="p-4 space-y-3">
               {[...Array(5)].map((_, i) => (
-                <div key={i} className="skeleton w-full h-16 rounded" />
+                <div key={i} className="w-full h-16 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
               ))}
             </div>
           </div>
         </div>
 
         <div className="lg:col-span-3 space-y-6">
-          <div className="bg-white rounded-lg shadow-sm border p-6">
-            <div className="skeleton w-full h-80 rounded" />
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-6">
+            <div className="w-full h-80 bg-gray-200 dark:bg-gray-600 rounded animate-pulse" />
           </div>
         </div>
       </div>
