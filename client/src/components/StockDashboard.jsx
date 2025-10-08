@@ -408,7 +408,7 @@ const DetailedDashboard = ({
 // Supporting Components
 
 const MetricCard = ({ title, value, icon, trend }) => (
-  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-colors duration-200">
+  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700 p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:scale-[1.02] hover:border-gray-300 dark:hover:border-gray-500">
     <div className="flex items-center justify-between">
       <div>
         <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{title}</p>
