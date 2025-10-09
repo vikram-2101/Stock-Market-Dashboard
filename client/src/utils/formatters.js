@@ -1,4 +1,11 @@
 /**
+ * Utility formatting functions for displaying financial, numeric, and textual data
+ * across the application.
+ *
+ * @module utils/formatters
+ */
+
+/**
  * Format currency values with Indian Rupee symbol
  * @param {number} value - The numeric value to format
  * @param {Object} options - Formatting options
@@ -58,7 +65,7 @@ export const formatPercentage = (value, options = {}) => {
 };
 
 /**
- * Format large numbers with appropriate suffixes
+ * Format a large number with Indian digit grouping (lakh/crore).
  * @param {number} value - The numeric value to format
  * @param {Object} options - Formatting options
  * @param {boolean} options.compact - Whether to use compact notation
@@ -92,7 +99,7 @@ export const formatNumber = (value, options = {}) => {
 };
 
 /**
- * Format date values
+ * Format a date string or Date object into a readable format.
  * @param {Date|string} date - The date to format
  * @param {Object} options - Formatting options
  * @param {boolean} options.short - Whether to use short format
@@ -131,8 +138,13 @@ export const formatDate = (date, options = {}) => {
 };
 
 /**
- * Format time duration in human readable format
- * @param {number} milliseconds - Duration in milliseconds
+ * Convert a duration in seconds into a readable format (e.g., 2h 30m 10s).
+ *
+ * @param {number} seconds - The duration in seconds.
+ * @returns {string} Human-readable duration string.
+ *
+ * @example
+ * formatDuration(3661); // "1h 1m 1s"
  */
 export const formatDuration = (milliseconds) => {
   if (!milliseconds || milliseconds < 0) return "0s";
@@ -154,8 +166,13 @@ export const formatDuration = (milliseconds) => {
 };
 
 /**
- * Format market status
- * @param {string} status - Market status string
+ * Format market status as a human-readable label.
+ *
+ * @param {string} status - Market status code ("open", "closed", etc.).
+ * @returns {string} Human-readable status label.
+ *
+ * @example
+ * formatMarketStatus("open"); // "Open"
  */
 export const formatMarketStatus = (status) => {
   const statusMap = {
@@ -169,8 +186,13 @@ export const formatMarketStatus = (status) => {
 };
 
 /**
- * Format volume with appropriate suffixes
- * @param {number} volume - Trading volume
+ * Format trade volume using compact notation (e.g., 1.2M, 3.4B).
+ *
+ * @param {number} value - The volume value.
+ * @returns {string} Formatted volume string.
+ *
+ * @example
+ * formatVolume(1250000); // "1.25M"
  */
 export const formatVolume = (volume) => {
   if (!volume || volume === 0) return "0";
@@ -187,9 +209,14 @@ export const formatVolume = (volume) => {
 };
 
 /**
- * Calculate and format price change
- * @param {number} current - Current price
- * @param {number} previous - Previous price
+ * Format a numeric value with a plus or minus sign for price change display.
+ *
+ * @param {number} value - The numeric value to format.
+ * @returns {string} Value prefixed with + or - sign.
+ *
+ * @example
+ * formatPriceChange(5.6); // "+5.6"
+ * formatPriceChange(-2.3); // "-2.3"
  */
 export const formatPriceChange = (current, previous) => {
   if (!current || !previous) {
@@ -217,8 +244,13 @@ export const formatPriceChange = (current, previous) => {
 };
 
 /**
- * Format market cap with appropriate Indian suffixes
- * @param {number} marketCap - Market capitalization value
+ * Format a company's market capitalization value.
+ *
+ * @param {number} value - Market cap in rupees.
+ * @returns {string} Compact formatted market cap (e.g., ₹1.2T).
+ *
+ * @example
+ * formatMarketCap(1000000000000); // "₹1T"
  */
 export const formatMarketCap = (marketCap) => {
   if (!marketCap || marketCap === 0) return "₹0";
@@ -241,9 +273,14 @@ export const formatMarketCap = (marketCap) => {
 };
 
 /**
- * Validate and sanitize numeric inputs
- * @param {any} value - Value to validate
- * @param {number} fallback - Fallback value if invalid
+ * Sanitize a number input by converting invalid or null values to zero.
+ *
+ * @param {number|string|null|undefined} value - The input value.
+ * @returns {number} Sanitized numeric value.
+ *
+ * @example
+ * sanitizeNumber("45"); // 45
+ * sanitizeNumber(null); // 0
  */
 export const sanitizeNumber = (value, fallback = 0) => {
   const num = parseFloat(value);
@@ -251,8 +288,13 @@ export const sanitizeNumber = (value, fallback = 0) => {
 };
 
 /**
- * Format Indian stock exchange codes
- * @param {string} exchange - Exchange code (NSE, BSE, etc.)
+ * Format stock exchange names into short codes.
+ *
+ * @param {string} exchange - Exchange name (e.g., "National Stock Exchange").
+ * @returns {string} Short exchange code.
+ *
+ * @example
+ * formatExchange("National Stock Exchange"); // "NSE"
  */
 export const formatExchange = (exchange) => {
   const exchangeMap = {
@@ -265,10 +307,14 @@ export const formatExchange = (exchange) => {
 };
 
 /**
- * Calculate moving average for stock data
- * @param {Array} data - Array of stock data points
- * @param {number} period - Period for moving average
- * @param {string} field - Field to calculate average for (default: 'close')
+ * Calculate a simple moving average (SMA) for an array of numbers.
+ *
+ * @param {number[]} values - Array of numeric values.
+ * @param {number} period - Number of values to consider in each average window.
+ * @returns {number[]} Array of SMA values.
+ *
+ * @example
+ * calculateMovingAverage([1, 2, 3, 4, 5], 3); // [2, 3, 4]
  */
 export const calculateMovingAverage = (data, period, field = "close") => {
   if (!data || data.length < period) return [];
