@@ -71,3 +71,30 @@
     width: 100% !important;
   }
 }
+
+/* DARK MODE SPECIFIC STYLES - NEWLY ADDED */
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Dark mode chart tooltips */
+.dark .recharts-tooltip-content {
+  background: rgba(31, 41, 55, 0.95) !important;
+  border: 1px solid #4b5563 !important;
+  color: #f9fafb !important;
+}
+
+/* Dark mode glassmorphism */
+.dark .glassmorphism {
+  background: rgba(31, 41, 55, 0.25);
+  border: 1px solid rgba(75, 85, 99, 0.18);
+}
