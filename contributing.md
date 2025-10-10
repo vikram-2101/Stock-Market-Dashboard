@@ -9,8 +9,8 @@ This section outlines the process to set up your local environment and begin con
 1.  **Fork the repository:** Click the "Fork" button on the top right of this page.
 2.  **Clone your fork:**
     ```bash
-    git clone [https://github.com/your-username/stock-dashboard.git](https://github.com/your-username/stock-dashboard.git)
-    cd stock-dashboard/frontend
+    git clone [https://github.com/your-username/Stock-Market-Dashboard.git]
+    cd Stock-Market-Dashboard
     ```
 3.  **Install dependencies:**
     ```bash
@@ -57,13 +57,32 @@ To ensure consistency and readability, please adhere to the following style guid
 
 ## Testing Guidelines
 
-We use **Jest** and **React Testing Library** for testing.
+We use **Jest** and **React Testing** Library for our testing strategy. All new features and bug fixes must be accompanied by relevant tests to prevent regressions.
 
-1.  **Coverage:** All new features (`feat`) and bug fixes (`fix`) **must** be accompanied by relevant unit or integration tests to prevent regressions.
-2.  **Running Tests:** Before submitting a Pull Request, verify all local tests pass:
-    ```bash
-    npm test
-    ```
+What to Test
+
+Component Testing
+
+- **Rendering**: Ensure components render correctly without crashing.
+- **User Interactions**: Verify events like clicks, form submissions, and inputs work as expected.
+- **API Mocking**: Mock API calls to test components in isolation and handle different states (loading, success, error).
+
+Integration Testing
+
+- **Component Communication**: Test that components interact with each other correctly (e.g., passing props).
+- **Data Flow**: Verify that data flows correctly between components and custom hooks.
+- **Error Handling**: Test how the application handles API errors and displays feedback to the user.
+
+Running Tests
+Before submitting a Pull Request, verify all local tests pass:
+
+```powershell
+# Run all tests in watch mode
+npm test
+
+# Run tests and see a coverage report
+npm test -- --coverage
+```
 
 ## Code Review Process
 
@@ -74,11 +93,11 @@ We use **Jest** and **React Testing Library** for testing.
 
 ---
 
-## Submitting a Pull Request & Finding a Task
+## Finding a Task & Submitting a Pull Request
 
 ### How to Find a Task
 
-We've tagged issues that are great for first-time contributors with the label `good first issue`. Look for these issues on our [Issues page](https://github.com/your-username/your-repo/issues).
+We've tagged issues that are great for first-time contributors with the good first issue and hacktoberfest labels. Look for these issues on our Issues page.
 
 ### Submitting a Pull Request (PR)
 
