@@ -68,36 +68,36 @@ const StockChart = ({ stockData, loading, companyName }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border dark:border-gray-700">
+    <div className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-2xl border-2 border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:shadow-3xl">
       {/* Chart Header */}
-      <div className="p-4 border-b dark:border-gray-600">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <BarChart3 className="h-5 w-5 text-gray-400 dark:text-gray-500" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="p-5 border-b-2 border-gray-200 dark:border-gray-600 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 dark:from-blue-900/20 dark:to-indigo-900/20">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center space-x-3">
+            <BarChart3 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-blue-700 dark:from-white dark:to-blue-300">
               {companyName} Stock Chart
             </h2>
           </div>
 
           <div className="flex items-center space-x-4">
             {/* Chart Type Toggle */}
-            <div className="flex rounded-lg border dark:border-gray-600">
+            <div className="flex rounded-lg bg-gray-100 dark:bg-gray-700/50 p-1">
               <button
                 onClick={() => setChartType("line")}
-                className={`px-3 py-1 text-sm font-medium rounded-l-lg transition-colors ${
+                className={`px-4 py-2 text-sm font-bold rounded-lg transition-all duration-300 ${
                   chartType === "line"
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-600 hover:shadow-md"
                 }`}
               >
                 Line
               </button>
               <button
                 onClick={() => setChartType("area")}
-                className={`px-3 py-1 text-sm font-medium rounded-r-lg border-l dark:border-gray-600 transition-colors ${
+                className={`px-4 py-2 text-sm font-bold rounded-lg transition-all duration-300 ${
                   chartType === "area"
-                    ? "bg-blue-600 text-white"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-600 hover:shadow-md"
                 }`}
               >
                 Area
@@ -128,14 +128,18 @@ const StockChart = ({ stockData, loading, companyName }) => {
           <div className="h-80 flex items-center justify-center">
             <div className="text-center">
               <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-600 dark:text-gray-400">Loading chart data...</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Loading chart data...
+              </p>
             </div>
           </div>
         ) : chartData.length === 0 ? (
           <div className="h-80 flex items-center justify-center">
             <div className="text-center">
               <BarChart3 className="h-12 w-12 text-gray-300 dark:text-gray-600 mx-auto mb-2" />
-              <p className="text-sm text-gray-600 dark:text-gray-400">No chart data available</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                No chart data available
+              </p>
             </div>
           </div>
         ) : (
@@ -144,7 +148,9 @@ const StockChart = ({ stockData, loading, companyName }) => {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <div>
-                  <span className="text-sm text-gray-600 dark:text-gray-400">Current: </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    Current:{" "}
+                  </span>
                   <span className="font-semibold text-gray-900 dark:text-white">
                     {formatCurrency(chartData[chartData.length - 1]?.price)}
                   </span>
@@ -259,7 +265,9 @@ const StockChart = ({ stockData, loading, companyName }) => {
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-gray-600 dark:text-gray-400">Avg Volume</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Avg Volume
+                </p>
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">
                   {(
                     chartData.reduce((sum, d) => sum + d.volume, 0) /
@@ -268,7 +276,9 @@ const StockChart = ({ stockData, loading, companyName }) => {
                 </p>
               </div>
               <div className="text-center">
-                <p className="text-xs text-gray-600 dark:text-gray-400">Volatility</p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Volatility
+                </p>
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">
                   {(
                     Math.max(...chartData.map((d) => d.high)) -

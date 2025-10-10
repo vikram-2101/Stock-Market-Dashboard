@@ -1,8 +1,8 @@
-// frontend/src/hooks/useStockData.js
 import { useState, useEffect } from "react";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL;
-console.log("here is the url", API_BASE_URL);
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 // Hook for fetching companies
 export const useCompanies = () => {
   const [companies, setCompanies] = useState([]);
@@ -86,9 +86,11 @@ export const useRealTimePrice = (companyId) => {
 
     const fetchPrice = async () => {
       try {
-        const res = await fetch(`/api/companies/${companyId}/price`);
+        const res = await fetch(
+          `${API_BASE_URL}/companies/${companyId}/latest-price`
+        );
         const data = await res.json();
-        setPrice(data.price);
+        setPrice(data);
         setConnected(true);
       } catch (err) {
         console.error("❌ Error fetching price:", err);
@@ -102,5 +104,5 @@ export const useRealTimePrice = (companyId) => {
     return () => clearInterval(interval);
   }, [companyId]);
 
-  return { price, connected }; // ✅ same shape as useRealTimePrice
+  return { price, connected };
 };
